@@ -12,21 +12,21 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v4
 
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: root
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
-            whoami
-            cd /critik-v
-            rm -rf ./${{github.event.repository.name}}
-            git clone https://github.com/${{github.repository}}.git
-            cd ./${{github.event.repository.name}}
-            cp .env.example .env
-            sed -i "s/GIN_MODE=.*$/GIN_MODE=production/" .env
-            sed -i "s/IMAGE_STORAGE_PATH=.*$/IMAGE_STORAGE_PATH=images/" .env
-            sed -i "s/PDF_STORAGE_PATH=.*$/PDF_STORAGE_PATH=pdf/" .env
-            sed -i "s/SERVER_SERVICE_PORT=.*$/SERVER_SERVICE_PORT=${{secrets.SERVER_PORT}}/" .env
-            sed -i "s/SERVER_SERVICE=.*$/SERVER_SERVICE=${{secrets.SERVER_SERVICE}}/" .env
+      # - name: executing remote ssh commands using password
+      #   uses: appleboy/ssh-action@v1.0.3
+      #   with:
+      #     host: ${{ secrets.SSH_HOST }}
+      #     username: root
+      #     password: ${{ secrets.SSH_PASSWORD }}
+      #     script: |
+      #       whoami
+      #       cd /critik-v
+      #       rm -rf ./${{github.event.repository.name}}
+      #       git clone https://github.com/${{github.repository}}.git
+      #       cd ./${{github.event.repository.name}}
+      #       cp .env.example .env
+      #       sed -i "s/GIN_MODE=.*$/GIN_MODE=production/" .env
+      #       sed -i "s/IMAGE_STORAGE_PATH=.*$/IMAGE_STORAGE_PATH=images/" .env
+      #       sed -i "s/PDF_STORAGE_PATH=.*$/PDF_STORAGE_PATH=pdf/" .env
+      #       sed -i "s/SERVER_SERVICE_PORT=.*$/SERVER_SERVICE_PORT=${{secrets.SERVER_PORT}}/" .env
+      #       sed -i "s/SERVER_SERVICE=.*$/SERVER_SERVICE=${{secrets.SERVER_SERVICE}}/" .env

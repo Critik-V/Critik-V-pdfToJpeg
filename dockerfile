@@ -3,9 +3,7 @@ FROM golang:1.22 AS builder
 WORKDIR /builder
 
 COPY go.mod .
-
 COPY go.sum .
-
 RUN go mod download
 
 RUN apt-get update && apt-get install -y libmupdf-dev
@@ -14,7 +12,7 @@ COPY . .
 
 RUN go build -o /main .
 
-FROM ubuntu:latest
+FROM debian:bullseye-slim
 
 EXPOSE 5001
 

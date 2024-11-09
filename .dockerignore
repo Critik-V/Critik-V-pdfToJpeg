@@ -2,5 +2,5 @@ example.env
 .git
 .gitignore
 
-images/
+img/
 pdf/

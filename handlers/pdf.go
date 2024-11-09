@@ -9,16 +9,23 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// body represents the request body
 type body struct {
 	FileName string `json:"filename"`
 }
 
-func ConvertPdf(ctx *gin.Context) {
+// ConvertPdf converts a PDF file to a JPEG image
+func POSTConvertPdf(ctx *gin.Context) {
 	var body body
-	finished := make(chan bool)
-	mutex := &sync.Mutex{}
 
+	// Create a mutex to lock the goroutine
+	mutex := &sync.Mutex{}
 	mutex.Lock()
+	
+	// Create a channel to notify when the goroutine is finished
+	finished := make(chan bool)
+	
+	// Convert the PDF to JPEG in a goroutine
 	go func() {
 		defer mutex.Unlock()
 		err := ctx.BindJSON(&body)
